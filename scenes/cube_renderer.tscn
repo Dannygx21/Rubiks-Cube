@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cqf0p2p5hysvf"]
+
+[ext_resource type="Script" uid="uid://jnuin3wojopc" path="res://scripts/cube.gd" id="1_btjey"]
+[ext_resource type="Script" uid="uid://cssf5g07tqv6f" path="res://scripts/cube_renderer.gd" id="2_xrdr5"]
+
+[node name="Main" type="Node" unique_id=1580053441]
+script = ExtResource("1_btjey")
+
+[node name="CubeRenderer" type="Node3D" parent="." unique_id=2100832431]
+script = ExtResource("2_xrdr5")
+
+[node name="Camera3D" type="Camera3D" parent="CubeRenderer" unique_id=1145975160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 6)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CubeRenderer" unique_id=2026114293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 4)
