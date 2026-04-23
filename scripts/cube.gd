@@ -31,6 +31,9 @@ func _ready():
 		["L", move_L, move_L_prime],
 		["D", move_D, move_D_prime],
 		["B", move_B, move_B_prime],
+		["M", move_M, move_M_prime],
+		["E", move_E, move_E_prime],
+		["S", move_S, move_S_prime],
 	]
 
 	for m in moves:
@@ -422,6 +425,172 @@ func move_B_prime():
 	state["R"][2] = u[6]
 	state["R"][5] = u[7]
 	state["R"][8] = u[8]
+
+# ─────────────────────────────────────────
+#  M move — middle slice (same direction as L)
+# ─────────────────────────────────────────
+func move_M():
+	var u = state["U"].duplicate()
+	var f = state["F"].duplicate()
+	var d = state["D"].duplicate()
+	var b = state["B"].duplicate()
+
+	# U middle col → F middle col, reversed
+	state["F"][7] = u[1]
+	state["F"][4] = u[4]
+	state["F"][1] = u[7]
+
+	# F middle col → D middle col, reversed
+	state["D"][7] = f[1]
+	state["D"][4] = f[4]
+	state["D"][1] = f[7]
+
+	# D middle col → B middle col, straight
+	state["B"][1] = d[1]
+	state["B"][4] = d[4]
+	state["B"][7] = d[7]
+
+	# B middle col → U middle col, straight
+	state["U"][1] = b[1]
+	state["U"][4] = b[4]
+	state["U"][7] = b[7]
+
+func move_M_prime():
+	var u = state["U"].duplicate()
+	var f = state["F"].duplicate()
+	var d = state["D"].duplicate()
+	var b = state["B"].duplicate()
+
+	# F middle col → U middle col, reversed
+	state["U"][1] = f[7]
+	state["U"][4] = f[4]
+	state["U"][7] = f[1]
+
+	# D middle col → F middle col, reversed
+	state["F"][1] = d[7]
+	state["F"][4] = d[4]
+	state["F"][7] = d[1]
+
+	# B middle col → D middle col, straight
+	state["D"][1] = b[1]
+	state["D"][4] = b[4]
+	state["D"][7] = b[7]
+
+	# U middle col → B middle col, straight
+	state["B"][1] = u[1]
+	state["B"][4] = u[4]
+	state["B"][7] = u[7]
+
+# ─────────────────────────────────────────
+#  E move — equatorial slice (same direction as D)
+# ─────────────────────────────────────────
+func move_E():
+	var f = state["F"].duplicate()
+	var r = state["R"].duplicate()
+	var b = state["B"].duplicate()
+	var l = state["L"].duplicate()
+
+	# F middle row → L middle row, straight
+	state["L"][3] = f[3]
+	state["L"][4] = f[4]
+	state["L"][5] = f[5]
+
+	# R middle row → F middle row, straight
+	state["F"][3] = r[3]
+	state["F"][4] = r[4]
+	state["F"][5] = r[5]
+
+	# B middle row → R middle row, straight
+	state["R"][3] = b[3]
+	state["R"][4] = b[4]
+	state["R"][5] = b[5]
+
+	# L middle row → B middle row, straight
+	state["B"][3] = l[3]
+	state["B"][4] = l[4]
+	state["B"][5] = l[5]
+
+func move_E_prime():
+	var f = state["F"].duplicate()
+	var r = state["R"].duplicate()
+	var b = state["B"].duplicate()
+	var l = state["L"].duplicate()
+
+	# F middle row → R middle row, straight
+	state["R"][3] = f[3]
+	state["R"][4] = f[4]
+	state["R"][5] = f[5]
+
+	# R middle row → B middle row, straight
+	state["B"][3] = r[3]
+	state["B"][4] = r[4]
+	state["B"][5] = r[5]
+
+	# B middle row → L middle row, straight
+	state["L"][3] = b[3]
+	state["L"][4] = b[4]
+	state["L"][5] = b[5]
+
+	# L middle row → F middle row, straight
+	state["F"][3] = l[3]
+	state["F"][4] = l[4]
+	state["F"][5] = l[5]
+
+# ─────────────────────────────────────────
+#  S move — standing slice (same direction as F)
+# ─────────────────────────────────────────
+func move_S():
+	var u = state["U"].duplicate()
+	var r = state["R"].duplicate()
+	var d = state["D"].duplicate()
+	var l = state["L"].duplicate()
+
+	# U middle row (z=0) → R middle col, straight
+	state["R"][1] = u[3]
+	state["R"][4] = u[4]
+	state["R"][7] = u[5]
+
+	# R middle col → D middle row, reversed
+	state["D"][5] = r[1]
+	state["D"][4] = r[4]
+	state["D"][3] = r[7]
+
+	# D middle row → L middle col, straight
+	state["L"][1] = d[3]
+	state["L"][4] = d[4]
+	state["L"][7] = d[5]
+
+	# L middle col → U middle row, reversed
+	state["U"][5] = l[1]
+	state["U"][4] = l[4]
+	state["U"][3] = l[7]
+
+func move_S_prime():
+	var u = state["U"].duplicate()
+	var r = state["R"].duplicate()
+	var d = state["D"].duplicate()
+	var l = state["L"].duplicate()
+
+	# R middle col → U middle row, straight
+	state["U"][3] = r[1]
+	state["U"][4] = r[4]
+	state["U"][5] = r[7]
+
+	# D middle row → R middle col, reversed
+	state["R"][1] = d[5]
+	state["R"][4] = d[4]
+	state["R"][7] = d[3]
+
+	# L middle col → D middle row, straight
+	state["D"][3] = l[1]
+	state["D"][4] = l[4]
+	state["D"][5] = l[7]
+
+	# U middle row → L middle col, reversed
+	state["L"][1] = u[5]
+	state["L"][4] = u[4]
+	state["L"][7] = u[3]
+
 #
 # Scramble - apply n random moves
 #
@@ -432,7 +601,10 @@ func scramble(n: int = 20):
 		move_F, move_F_prime,
 		move_L, move_L_prime,
 		move_D, move_D_prime,
-		move_B, move_B_prime
+		move_B, move_B_prime,
+		move_M, move_M_prime,
+		move_E, move_E_prime,
+		move_S, move_S_prime,
 	]
 	for i in range(n):
 		moves[randi() % moves.size()].call()
